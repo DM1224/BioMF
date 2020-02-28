@@ -1,17 +1,55 @@
 ﻿@page "/"
 
-<div align="center">
+<h2>Query Graph Type</h2>
+
+<div class="custom-control custom-radio">
+    <input type="radio" class="custom-control-input" id="none" name="queryGraphTypeRadios" checked @onchange="@FlipNoneRadio">
+    <label class="custom-control-label" for="none">None</label>
+</div>
+
+<div class="custom-control custom-radio">
+    <input type="radio" class="custom-control-input" id="oneQueryGraph" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
+    <label class="custom-control-label" for="oneQueryGraph">One Query Graph</label>
+</div>
+
+<div class="custom-control custom-radio">
+    <input type="radio" class="custom-control-input" id="multipleQueryGraphs" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
+    <label class="custom-control-label" for="multipleQueryGraphs">Multiple Query Graphs</label>
+</div>
+
+<div>
     <h2>Subgraph Size</h2>
     <h3>@motifSizeSelected</h3>
-    <input type="range" max="@maxMotifSize" step="@stepSize" @bind="motifSizeSelected" @bind:event="oninput" />
+    <input type="range" max="@maxMotifSize" step="@stepSize" @bind="@motifSizeSelected" @bind:event="oninput" />
 </div>
 <button class="btn btn-primary" @onclick="SelectFile">Select File</button>
-<button class="btn btn-outline-primary" disabled>Select Query Graph</button>
+<button class="btn btn-primary" disabled="@selectQueryGraphButtonState">Select Query Graph</button>
+<button class="btn btn-primary">Start</button>
 
 @code {
     private int maxMotifSize = 6;
     private int stepSize = 1;
     private int motifSizeSelected;
+    private bool selectQueryGraphButtonState = true;
+    private bool noneRadioChecked = true;
 
     private void SelectFile() { }
+    private void FlipNoneRadio()
+    {
+        if (!noneRadioChecked)
+        {
+            selectQueryGraphButtonState = true;
+            noneRadioChecked = true;
+        }
+        else
+        {
+            selectQueryGraphButtonState = true;
+            noneRadioChecked = false;
+        }
+    }
+    private void EnableSelectQueryGraphButton()
+    {
+        noneRadioChecked = false;
+        selectQueryGraphButtonState = false;
+    }
 }
