@@ -3,21 +3,23 @@
     <div class="frontpagespace">
         <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Query Graph Type</h2>
 
-        <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="none" name="queryGraphTypeRadios" checked @onchange="@FlipNoneRadio">
-            <label class="custom-control-label" for="none">None</label>
-        </div>
+        <div class="radioborders">
+            <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="none" name="queryGraphTypeRadios" checked @onchange="@FlipNoneRadio">
+                <label class="custom-control-label" for="none">None</label>
+            </div>
 
-        <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="oneQueryGraph" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
-            <label class="custom-control-label" for="oneQueryGraph">One Query Graph</label>
-        </div>
+            <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="oneQueryGraph" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
+                <label class="custom-control-label" for="oneQueryGraph">One Query Graph</label>
+            </div>
 
-        <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="multipleQueryGraphs" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
-            <label class="custom-control-label" for="multipleQueryGraphs">Multiple Query Graphs</label>
+            <div class="custom-control custom-radio">
+                <input type="radio" class="custom-control-input" id="multipleQueryGraphs" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
+                <label class="custom-control-label" for="multipleQueryGraphs">Multiple Query Graphs</label>
+            </div>
         </div>
-
+       
         <div>
             <h2>Subgraph Size</h2>
             <h3>@motifSizeSelected</h3>

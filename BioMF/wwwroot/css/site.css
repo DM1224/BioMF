@@ -60,7 +60,15 @@ div.headerfont {
 
 div.frontpagespace {
     padding-top: 50px;
-    border: 1px hidden
+    border: 1px hidden;
+}
+
+div.radioborders {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border: 1px hidden;
+    padding-left: 320px;
+    color: #2699fb
 }
 
 .content {
