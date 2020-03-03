@@ -1,5 +1,4 @@
 ﻿@page "/"
-
     <div class="frontpagespace">
         <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Query Graph Type</h2>
 
@@ -21,9 +20,17 @@
         </div>
        
         <div>
-            <h2>Subgraph Size</h2>
-            <h3>@motifSizeSelected</h3>
-            <input type="range" min="@minMotifSize" max="@maxMotifSize" step="@stepSize" @bind="@motifSizeSelected" @bind:event="oninput" />
+            <h2 style="color: #7f7f7f; font-family: Arial"; align="center">Subgraph Size</h2>
+            <div class="subgraphnum">
+                @motifSizeSelected
+            </div>
+            <div class="subgraphslider">
+                <div class="slidecontainer">
+                    <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @bind:event="oninput" />
+                </div>
+                
+            </div>
+     
         </div>
         <div>
             <InputFile class="custom-file-input" id="selectFile" OnChange="@SelectFile" />
