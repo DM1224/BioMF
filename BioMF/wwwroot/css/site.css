@@ -11,10 +11,17 @@ a, .btn-link {
     color: #0366d6;
 }
 
+
 .btn-primary {
+    display: inline-block;
     color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    background-color: #2699fb;
+    border-color: #707070;
+    cursor: pointer;
+}
+
+.btn-primary button:hover {
+    background-color: #f7f7f7;
 }
 
 app {

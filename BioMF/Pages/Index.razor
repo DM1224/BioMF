@@ -18,9 +18,9 @@
                 <label class="custom-control-label" for="multipleQueryGraphs">Multiple Query Graphs</label>
             </div>
         </div>
-       
+
         <div>
-            <h2 style="color: #7f7f7f; font-family: Arial"; align="center">Subgraph Size</h2>
+            <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Subgraph Size</h2>
             <div class="subgraphnum">
                 @motifSizeSelected
             </div>
@@ -28,16 +28,20 @@
                 <div class="slidecontainer">
                     <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @bind:event="oninput" />
                 </div>
-                
+
             </div>
-     
+
         </div>
         <div>
+
             <InputFile class="custom-file-input" id="selectFile" OnChange="@SelectFile" />
-            <label class="btn btn-primary" for="selectFile">Select file</label>
+            <label class="btn btn-primary"  for="selectFile">Select file</label>
+
             <InputFile class="custom-file-input" disabled="@selectQueryGraphButtonState" id="selectQueryGraph" OnChange="@SelectQueryGraphFile" />
             <label class="btn btn-primary" for="selectQueryGraph">Select Query Graph</label>
-            <button class="btn btn-primary">Start</button>
+
+            <button class="btn btn-primary" style="float: right;">Start</button>
+
         </div>
     </div>
 
