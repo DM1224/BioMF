@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9F41DBEF-471A-438B-8AC1-AE124F2C7AF3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuickGraph</RootNamespace>
+    <AssemblyName>QuickGraph</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseModified|AnyCPU'">
+    <OutputPath>bin\ReleaseModified\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseModified|x64'">
+    <OutputPath>bin\x64\ReleaseModified\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Algorithms\AlgorithmBase.cs" />
+    <Compile Include="Algorithms\ComputationState.cs" />
+    <Compile Include="Algorithms\Contracts\IAlgorithmContract.cs" />
+    <Compile Include="Algorithms\Contracts\IComputationContract.cs" />
+    <Compile Include="Algorithms\IAlgorithm.cs" />
+    <Compile Include="Algorithms\IComputation.cs" />
+    <Compile Include="Algorithms\IDistanceRecorderAlgorithm.cs" />
+    <Compile Include="Algorithms\IEdgePredecessorRecorderAlgorithm.cs" />
+    <Compile Include="Algorithms\ITreeBuilderAlgorithm.cs" />
+    <Compile Include="Algorithms\IVertexColorizerAlgorithm.cs" />
+    <Compile Include="Algorithms\IVertexPredecessorRecorderAlgorithm.cs" />
+    <Compile Include="Algorithms\IVertexTimeStamperAlgorithm.cs" />
+    <Compile Include="Algorithms\Observers\Contracts\IObserverContract.cs" />
+    <Compile Include="Algorithms\Observers\DisposableAction.cs" />
+    <Compile Include="Algorithms\Observers\EdgePredecessorRecorderObserver.cs" />
+    <Compile Include="Algorithms\Observers\EdgeRecorderObserver.cs" />
+    <Compile Include="Algorithms\Observers\IObserver.cs" />
+    <Compile Include="Algorithms\RootedAlgorithmBase.cs" />
+    <Compile Include="Algorithms\Search\BreadthFirstSearchAlgorithm2.cs" />
+    <Compile Include="Algorithms\Search\BreadthFirstSearchAlgorithm.cs" />
+    <Compile Include="Algorithms\Search\DepthFirstSearchAlgorithm2.cs" />
+    <Compile Include="Algorithms\Search\DepthFirstSearchAlgorithm.cs" />
+    <Compile Include="Algorithms\Services\IAlgorithmComponent.cs" />
+    <Compile Include="Algorithms\Services\IAlgorithmServices.cs" />
+    <Compile Include="Algorithms\Services\ICancelManager.cs" />
+    <Compile Include="Algorithms\Services\IService.cs" />
+    <Compile Include="Alt\AdjacencyGraph.cs" />
+    <Compile Include="Alt\Edge.cs" />
+    <Compile Include="Collections\EdgeEdgeDictionary.cs" />
+    <Compile Include="Collections\EdgeList.cs" />
+    <Compile Include="Collections\IEdgeList.cs" />
+    <Compile Include="Collections\IQueue.cs" />
+    <Compile Include="Collections\IVertexEdgeDictionary.cs" />
+    <Compile Include="Collections\Queue.cs" />
+    <Compile Include="Collections\VertexEdgeDictionary.cs" />
+    <Compile Include="Collections\VertexList.cs" />
+    <Compile Include="Contracts\Collections\IEdgeListContract.cs" />
+    <Compile Include="Contracts\Collections\IVertexEdgeDictionaryContract.cs" />
+    <Compile Include="Contracts\IEdgeContract.cs" />
+    <Compile Include="Contracts\IEdgeListGraphContract.cs" />
+    <Compile Include="Contracts\IEdgeSetContract.cs" />
+    <Compile Include="Contracts\IGraphContract.cs" />
+    <Compile Include="Contracts\IImplicitGraphContract.cs" />
+    <Compile Include="Contracts\IImplicitUndirectedGraphContract.cs" />
+    <Compile Include="Contracts\IImplicitVertexSetContract.cs" />
+    <Compile Include="Contracts\IIncidenceGraphContract.cs" />
+    <Compile Include="Contracts\IMutableEdgeListGraphContract.cs" />
+    <Compile Include="Contracts\IMutableGraphContract.cs" />
+    <Compile Include="Contracts\IMutableIncidenceGraphContract.cs" />
+    <Compile Include="Contracts\IMutableUndirectedGraphContract.cs" />
+    <Compile Include="Contracts\IMutableVertexAndEdgeSetContract.cs" />
+    <Compile Include="Contracts\IMutableVertexListGraphContract.cs" />
+    <Compile Include="Contracts\IMutableVertexSetContract.cs" />
+    <Compile Include="Contracts\IUndirectedEdgeContract.cs" />
+    <Compile Include="Contracts\IUndirectedGraphContract.cs" />
+    <Compile Include="Contracts\IVertexSetContract.cs" />
+    <Compile Include="EdgeEdgeEventArgs.cs" />
+    <Compile Include="EdgeEventArgs.cs" />
+    <Compile Include="EdgeExtensions.cs" />
+    <Compile Include="EdgePredicate.cs" />
+    <Compile Include="GraphColor.cs" />
+    <Compile Include="IEdge.cs" />
+    <Compile Include="IEdgeListAndIncidenceGraph.cs" />
+    <Compile Include="IEdgeListGraph.cs" />
+    <Compile Include="IEdgeSet.cs" />
+    <Compile Include="IGraph.cs" />
+    <Compile Include="IImplicitGraph.cs" />
+    <Compile Include="IImplicitUndirectedGraph.cs" />
+    <Compile Include="IImplicitVertexSet.cs" />
+    <Compile Include="IIncidenceGraph.cs" />
+    <Compile Include="IMutableEdgeListGraph.cs" />
+    <Compile Include="IMutableGraph.cs" />
+    <Compile Include="IMutableIncidenceGraph.cs" />
+    <Compile Include="IMutableUndirectedGraph.cs" />
+    <Compile Include="IMutableVertexAndEdgeListGraph.cs" />
+    <Compile Include="IMutableVertexAndEdgeSet.cs" />
+    <Compile Include="IMutableVertexListGraph.cs" />
+    <Compile Include="IMutableVertexSet.cs" />
+    <Compile Include="IUndirectedEdge.cs" />
+    <Compile Include="IUndirectedGraph.cs" />
+    <Compile Include="IVertexAndEdgeListGraph.cs" />
+    <Compile Include="IVertexListGraph.cs" />
+    <Compile Include="IVertexSet.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Alt\UndirectedGraph.cs" />
+    <Compile Include="VertexEventArgs.cs" />
+    <Compile Include="VertexPredicate.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
