@@ -5,22 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Data\ParaMODA.CrossPlatform\ParaMODA.Impl\ParaMODA.Impl.csproj" />
-    <None Include="Data\ParaMODA.CrossPlatform\ParaMODA\ParaMODA.csproj" />
-    <None Include="Data\ParaMODA.Impl\packages.config" />
-    <None Include="Data\ParaMODA.Impl\ParaMODA.Impl.csproj" />
+    <Compile Remove="Data\ParaMODA\**" />
+    <Content Remove="Data\ParaMODA\**" />
+    <EmbeddedResource Remove="Data\ParaMODA\**" />
+    <None Remove="Data\ParaMODA\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BlazorInputFile" Version="0.1.0-preview-00002" />
     <PackageReference Include="CommandLineParser" Version="2.7.82" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
-    <PackageReference Include="QuickGraph" Version="3.6.61119.7" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\ParaMODA\" />
-    <Folder Include="Data\QuickGraph\Algorithms\" />
   </ItemGroup>
 
 </Project>
