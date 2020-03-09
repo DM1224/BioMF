@@ -65,6 +65,12 @@ div.headerfont {
     font-size: 2.5em;
 }
 
+div.mappingcontainer {
+    border: 1px solid black;
+    margin-top: 350px; /*Fix margins later*/
+
+}
+
 div.frontpagespace {
     padding-top: 50px;
     border: 1px hidden;

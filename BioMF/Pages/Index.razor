@@ -1,53 +1,56 @@
 ﻿@page "/"
-    <div class="frontpagespace">
-        <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Query Graph Type</h2>
+@inject NavigationManager NavigationManager
 
-        <div class="radioborders">
-            <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="none" name="queryGraphTypeRadios" checked @onchange="@FlipNoneRadio">
-                <label class="custom-control-label" for="none">None</label>
-            </div>
+<div class="frontpagespace">
+    <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Query Graph Type</h2>
 
-            <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="oneQueryGraph" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
-                <label class="custom-control-label" for="oneQueryGraph">One Query Graph</label>
-            </div>
-
-            <div class="custom-control custom-radio">
-                <input type="radio" class="custom-control-input" id="multipleQueryGraphs" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
-                <label class="custom-control-label" for="multipleQueryGraphs">Multiple Query Graphs</label>
-            </div>
+    <div class="radioborders">
+        <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="none" name="queryGraphTypeRadios" checked @onchange="@FlipNoneRadio">
+            <label class="custom-control-label" for="none">None</label>
         </div>
 
-        <div>
-            <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Subgraph Size</h2>
-            <div class="subgraphnum">
-                @motifSizeSelected
-            </div>
-            <div class="subgraphslider">
-                <div class="slidecontainer">
-                    <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @bind:event="oninput" />
-                </div>
-
-            </div>
-
+        <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="oneQueryGraph" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
+            <label class="custom-control-label" for="oneQueryGraph">One Query Graph</label>
         </div>
-        <div>
 
-            <InputFile class="custom-file-input" id="selectFile" OnChange="@SelectFile" />
-            <label class="btn btn-primary"  for="selectFile">Select file</label>
-
-            <InputFile class="custom-file-input" disabled="@selectQueryGraphButtonState" id="selectQueryGraph" OnChange="@SelectQueryGraphFile" />
-            <label class="btn btn-primary" for="selectQueryGraph">Select Query Graph</label>
-
-            <button class="btn btn-primary" style="float: right;">Start</button>
-
+        <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="multipleQueryGraphs" name="queryGraphTypeRadios" @onchange="EnableSelectQueryGraphButton">
+            <label class="custom-control-label" for="multipleQueryGraphs">Multiple Query Graphs</label>
         </div>
     </div>
+
+    <div>
+        <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Subgraph Size</h2>
+        <div class="subgraphnum">
+            @motifSizeSelected
+        </div>
+        <div class="subgraphslider">
+            <div class="slidecontainer">
+                <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @bind:event="oninput" />
+            </div>
+
+        </div>
+
+    </div>
+    <div>
+
+        <InputFile class="custom-file-input" id="selectFile" OnChange="@SelectFile" />
+        <label class="btn btn-primary" for="selectFile">Select file</label>
+
+        <InputFile class="custom-file-input" disabled="@selectQueryGraphButtonState" id="selectQueryGraph" OnChange="@SelectQueryGraphFile" />
+        <label class="btn btn-primary" for="selectQueryGraph">Select Query Graph</label>
+
+        <button class="btn btn-primary" @onclick="navigateToResults" style="float: right;">Start</button>
+
+    </div>
+</div>
 
 
 
 @code {
+    //TODO: Insert some method that when clicking start, the program runs and THEN redirects to the results page
     private int maxMotifSize = 5;
     private int minMotifSize = 3;
     private int stepSize = 1;
@@ -55,6 +58,7 @@
     private bool selectQueryGraphButtonState = true;
     private bool noneRadioChecked = true;
     private string fileName;
+
 
     void SelectFile(IFileListEntry[] files)
     {
@@ -91,5 +95,10 @@
     {
         noneRadioChecked = false;
         selectQueryGraphButtonState = false;
+    }
+
+    private void navigateToResults()
+    {
+        NavigationManager.NavigateTo("results");
     }
 }
