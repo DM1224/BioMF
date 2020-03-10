@@ -1,18 +1,58 @@
 ﻿@page "/results"
+@inject NavigationManager NavigationManager
+@inject Services.AppData AppData
+@using ParaMODA.Impl
 
-    <div class="frontpagespace">
-        <h2 style="color: #7f7f7f; font-family: Arial" ; align="left">Subgraph Results</h2>
+<div class="frontpagespace">
+    <h2 style="color: #7f7f7f; font-family: Arial" ; align="left">Subgraph Results</h2>
+    <div>@AppData.sb</div>
 
-        @*TODO: For each subgraph result, insert the subgraph (at this point it will be text),
+
+
+    @*TODO: For each subgraph result, insert the subgraph (at this point it will be text),
         Mappings found for that subgraph, and if its a frequent subgraph (maybe optional?)*@
 
-        @*NOTE: There is a border here just to help with positioning. Will remove later.*@
-        <div class="mappingcontainer">
-            <div style="color: #7f7f7f; font-family: Arial";>Network:</div> @*This might not be needed; only tells the number of nodes/edges for network*@
-            <div style="color: #7f7f7f; font-family: Arial";>Total Mappings Found: </div>
-        </div>
+    @*NOTE: There is a border here just to help with positioning. Will remove later.*@
+    <div class="mappingcontainer">
+        <div style="color: #7f7f7f; font-family: Arial" ;>Network:</div> @*This might not be needed; only tells the number of nodes/edges for network*@
+        <div style="color: #7f7f7f; font-family: Arial" ;>Total Mappings Found: </div>
     </div>
+</div>
 
 @code {
+    /// <summary>
+    /// Processes network motifs based on the given size. Please note that the LoadGraph function in ParaMODA was modified to accomodate 
+    /// BlazorInputFile, and that the first line in the network file was not read.
+    /// </summary>
+    private void ProcessGraph()
+    {
+        AppData.InputGraph = GraphProcessor.LoadGraph(AppData.Network);
+        ModaAlgorithms.BuildTree(AppData.SubgraphSize);
+        ProcessAlgorithm();
+    }
 
+    private void ProcessAlgorithm()
+    {
+        AppData.FrequentSubgraphs = ModaAlgorithms.Algorithm1(AppData.InputGraph, null, AppData.SubgraphSize, 0); //null is query graph, 0 is the threshold (default)
+        int totalMappings = 0;
+        //sb.Append("\nCompleted. Result Summary\n");
+        //sb.AppendLine("-------------------------------------------\n");
+
+        foreach (var qGraph in AppData.FrequentSubgraphs)
+        {
+            if (qGraph.Value == null)
+            {
+                AppData.sb.AppendFormat("\tSub-graph: {0}\t Mappings: 0\t Is Frequent Subgraph? false\n", qGraph.Key.ToString());
+            }
+            else
+            {
+                int count = qGraph.Value.Count; //int.Parse(qGraph.Value.Split('#')[0]); //
+                AppData.sb.AppendFormat("\tSub-graph: {0}\t Mappings: {1}\t Is Frequent Subgraph? {2}\n", qGraph.Key.ToString(), count, qGraph.Key.IsFrequentSubgraph);
+                totalMappings += count;
+            }
+        }
+//                sb.AppendFormat("\nTime Taken: {0} ({1}ms)\nNetwork: Nodes - {2}; Edges: {3};\nTotal Mappings found: {4}\nSubgraph Size: {5}\n", sw.Elapsed, sw.ElapsedMilliseconds.ToString("N"), inputGraph.VertexCount, inputGraph.EdgeCount, totalMappings, subGraphSize);
+//                AppData.FrequentSubgraphs.Clear();
+        
+    }
 }

@@ -50,21 +50,27 @@ namespace ParaMODA.Impl
         /// </summary>
         /// <param name="filename">The uploaded filename</param>
         /// <returns>A string containing feedback of the processing</returns>
-        public static UndirectedGraph<int> LoadGraph(string filename, bool isQueryGraph = false)
+        public static UndirectedGraph<int> LoadGraph(string[] lines)
         {
-            var lines = File.ReadAllLines(filename);
+            //since system io is not used, lines is given as an array of the lines in the txt file
+            //just like what readalllines does
+            //do note that the first line in the file was not read
+
+            //var lines = File.ReadAllLines(filename);
 
             UndirectedGraph<int> newGraphInstance;
-            if (isQueryGraph)
-            {
-                newGraphInstance = new QueryGraph(Path.GetFileNameWithoutExtension(filename))
-                {
-                };
-            }
-            else
-            {
-                newGraphInstance = new UndirectedGraph<int>();
-            }
+            newGraphInstance = new UndirectedGraph<int>();
+            //not needed since demo doesnt use q graphs
+            //if (isQueryGraph)
+            //{
+            //    //newGraphInstance = new QueryGraph(Path.GetFileNameWithoutExtension(filename))
+            //    //{
+            //    //};
+            //}
+            //else
+            //{
+            //    newGraphInstance = new UndirectedGraph<int>();
+            //}
             //Parallelizing this actually made it take longer to process my datasets
             string[] tmp;
             foreach (var line in lines)

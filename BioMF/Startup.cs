@@ -10,6 +10,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 //using BioMF.Data;
+using ParaMODA.Impl; //using the implementation of paraMODA since paraMODA deals with the command console
+using QuickGraph;
+using QuickGraph.Graphviz;
 
 namespace BioMF
 {
@@ -28,6 +31,7 @@ namespace BioMF
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSingleton<Services.AppData>();
             //services.AddSingleton<WeatherForecastService>();
         }
 

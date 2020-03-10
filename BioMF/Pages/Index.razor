@@ -1,5 +1,7 @@
 ﻿@page "/"
 @inject NavigationManager NavigationManager
+@inject Services.AppData  AppData
+@using ParaMODA.Impl
 
 <div class="frontpagespace">
     <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Query Graph Type</h2>
@@ -28,25 +30,27 @@
         </div>
         <div class="subgraphslider">
             <div class="slidecontainer">
-                <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @bind:event="oninput" />
+                @*onchange is added here so that data is able to be shared*@
+                <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @onchange="updateMotif" @bind:event="oninput"/>
             </div>
 
         </div>
 
     </div>
     <div>
+        <InputFile class="custom-file-input" id="selectFile" OnChange="SelectFile" />
+        @*Bug here IF there is an @onclick*@
+        <label class="btn btn-primary" for="selectFile">Select File</label>
 
-        <InputFile class="custom-file-input" id="selectFile" OnChange="@SelectFile" />
-        <label class="btn btn-primary" for="selectFile">Select file</label>
-
-        <InputFile class="custom-file-input" disabled="@selectQueryGraphButtonState" id="selectQueryGraph" OnChange="@SelectQueryGraphFile" />
+        @*Not in demo*@
+        <InputFile class="custom-file-input" disabled="@selectQueryGraphButtonState" id="selectQueryGraph" OnChange="SelectQueryGraphFile" />
         <label class="btn btn-primary" for="selectQueryGraph">Select Query Graph</label>
 
-        <button class="btn btn-primary" @onclick="navigateToResults" style="float: right;">Start</button>
+        @*WARNING: There is a bug that crashed the website IF the user does not select a network file before pressing start!*@
+        <button class="btn btn-primary" @onclick="GetInputGraph" style="float: right;">Start</button>
 
     </div>
 </div>
-
 
 
 @code {
@@ -57,26 +61,49 @@
     private int motifSizeSelected = 3;
     private bool selectQueryGraphButtonState = true;
     private bool noneRadioChecked = true;
-    private string fileName;
+    //private IFileListEntry file;
+    //int numLines;
 
-
-    void SelectFile(IFileListEntry[] files)
+    private void updateMotif()
     {
-        if (files.Length == 1)
-        {
-
-        }
+        AppData.SubgraphSize = motifSizeSelected;
     }
-    void SelectQueryGraphFile(IFileListEntry[] files)
+
+    private void SelectFile(IFileListEntry[] files)
     {
-        if (files.Length == 1)
+        AppData.NetworkFile = files.FirstOrDefault(); //assuming that there is either 1 or 0 files selected
+
+    }
+    //This has to be async
+    async Task GetInputGraph()
+    {
+        using (var reader = new System.IO.StreamReader(AppData.NetworkFile.Data))
         {
+            while (await reader.ReadLineAsync() != null)
+            {
+                var fileText = await reader.ReadToEndAsync(); //bug here, for some reason the reading skips the first line in the txt file
+                AppData.Network = fileText.Split("\n", StringSplitOptions.None);
+            }
 
         }
-        else if (files.Length > 1)
-        {
+        ProcessGraph();
+        navigateToResults();
+    }
 
-        }
+
+    private void SelectQueryGraphFile(IFileListEntry[] files)
+    {
+        //For the demo, do nothing
+
+        //file = files.FirstOrDefault();
+        //if (files.Length == 1)
+        //{
+
+        //}
+        //else if (files.Length > 1)
+        //{
+
+        //}
     }
     private void FlipNoneRadio()
     {
@@ -97,8 +124,49 @@
         selectQueryGraphButtonState = false;
     }
 
+    private void navigateToLoading()
+    {
+        NavigationManager.NavigateTo("loadingresults");
+    }
+
     private void navigateToResults()
     {
         NavigationManager.NavigateTo("results");
+    }
+
+    /// <summary>
+    /// Processes network motifs based on the given size. Please note that the LoadGraph function in ParaMODA was modified to accomodate 
+    /// BlazorInputFile, and that the first line in the network file was not read.
+    /// </summary>
+    private void ProcessGraph()
+    {
+        AppData.InputGraph = GraphProcessor.LoadGraph(AppData.Network);
+        ModaAlgorithms.BuildTree(AppData.SubgraphSize);
+        ProcessAlgorithm();
+    }
+
+    private void ProcessAlgorithm()
+    {
+        AppData.FrequentSubgraphs = ModaAlgorithms.Algorithm1(AppData.InputGraph, null, AppData.SubgraphSize, 0); //null is query graph, 0 is the threshold (default)
+        int totalMappings = 0;
+        //sb.Append("\nCompleted. Result Summary\n");
+        //sb.AppendLine("-------------------------------------------\n");
+
+        foreach (var qGraph in AppData.FrequentSubgraphs)
+        {
+            if (qGraph.Value == null)
+            {
+                AppData.sb.AppendFormat("\tSub-graph: {0}\t Mappings: 0\t Is Frequent Subgraph? false\n", qGraph.Key.ToString());
+            }
+            else
+            {
+                int count = qGraph.Value.Count; //int.Parse(qGraph.Value.Split('#')[0]); //
+                AppData.sb.AppendFormat("\tSub-graph: {0}\t Mappings: {1}\t Is Frequent Subgraph? {2}\n", qGraph.Key.ToString(), count, qGraph.Key.IsFrequentSubgraph);
+                totalMappings += count;
+            }
+        }
+//                sb.AppendFormat("\nTime Taken: {0} ({1}ms)\nNetwork: Nodes - {2}; Edges: {3};\nTotal Mappings found: {4}\nSubgraph Size: {5}\n", sw.Elapsed, sw.ElapsedMilliseconds.ToString("N"), inputGraph.VertexCount, inputGraph.EdgeCount, totalMappings, subGraphSize);
+//                AppData.FrequentSubgraphs.Clear();
+        
     }
 }
