@@ -2,6 +2,8 @@
 @inject NavigationManager NavigationManager
 @inject Services.AppData  AppData
 @using ParaMODA.Impl
+@using System.Collections.Generic;
+@using System.Text;
 
 <div class="frontpagespace">
     <h2 style="color: #7f7f7f; font-family: Arial" ; align="center">Query Graph Type</h2>
@@ -31,7 +33,7 @@
         <div class="subgraphslider">
             <div class="slidecontainer">
                 @*onchange is added here so that data is able to be shared*@
-                <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @onchange="updateMotif" @bind:event="oninput"/>
+                <input type="range" min="@minMotifSize" max="@maxMotifSize" class="slider" step="@stepSize" @bind="@motifSizeSelected" @onchange="updateMotif" @bind:event="oninput" />
             </div>
 
         </div>
@@ -135,7 +137,7 @@
     }
 
     /// <summary>
-    /// Processes network motifs based on the given size. Please note that the LoadGraph function in ParaMODA was modified to accomodate 
+    /// Processes network motifs based on the given size. Please note that the LoadGraph function in ParaMODA was modified to accomodate
     /// BlazorInputFile, and that the first line in the network file was not read.
     /// </summary>
     private void ProcessGraph()
@@ -156,17 +158,23 @@
         {
             if (qGraph.Value == null)
             {
-                AppData.sb.AppendFormat("\tSub-graph: {0}\t Mappings: 0\t Is Frequent Subgraph? false\n", qGraph.Key.ToString());
+                AppData.sb.AppendFormat("\tSubgraph: {0}\t Mappings: 0\t Is Frequent Subgraph? false \n", qGraph.Key.ToString());
+                AppData.SubgraphResults.Add(AppData.sb.ToString());
+                AppData.sb.Clear();
             }
             else
             {
                 int count = qGraph.Value.Count; //int.Parse(qGraph.Value.Split('#')[0]); //
-                AppData.sb.AppendFormat("\tSub-graph: {0}\t Mappings: {1}\t Is Frequent Subgraph? {2}\n", qGraph.Key.ToString(), count, qGraph.Key.IsFrequentSubgraph);
+                AppData.sb.AppendFormat("\tSubgraph: {0}\t Mappings: {1}\t Is Frequent Subgraph? {2} \n", qGraph.Key.ToString(), count, qGraph.Key.IsFrequentSubgraph);
+                AppData.SubgraphResults.Add(AppData.sb.ToString());
+                AppData.sb.Clear();
                 totalMappings += count;
             }
         }
-//                sb.AppendFormat("\nTime Taken: {0} ({1}ms)\nNetwork: Nodes - {2}; Edges: {3};\nTotal Mappings found: {4}\nSubgraph Size: {5}\n", sw.Elapsed, sw.ElapsedMilliseconds.ToString("N"), inputGraph.VertexCount, inputGraph.EdgeCount, totalMappings, subGraphSize);
-//                AppData.FrequentSubgraphs.Clear();
-        
+        AppData.Mappings = totalMappings; //set total mappings to shared data
+        AppData.sb.AppendFormat("Nodes - {0}; Edges: {1};", AppData.InputGraph.VertexCount, AppData.InputGraph.EdgeCount);
+        //                sb.AppendFormat("\nTime Taken: {0} ({1}ms)\nNetwork: Nodes - {2}; Edges: {3};\nTotal Mappings found: {4}\nSubgraph Size: {5}\n", sw.Elapsed, sw.ElapsedMilliseconds.ToString("N"), inputGraph.VertexCount, inputGraph.EdgeCount, totalMappings, subGraphSize);
+        AppData.FrequentSubgraphs.Clear();
+
     }
 }
