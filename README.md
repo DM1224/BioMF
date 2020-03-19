@@ -1,6 +1,11 @@
 # BioMF
 A prototype web-based program using Blazor to find network motifs. Currently supports a motif-centric algorithm with ParaMODA as its algorithm implementation.
 
+# Requirements
+* Visual Studio 2019
+* Blazor plugin for Visual Studio
+* Read [Get Started With Blazor](https://docs.microsoft.com/en-us/aspnet/core/blazor/get-started?view=aspnetcore-3.1&tabs=visual-studio)
+
 # How To Run
 1. Make sure to have the latest Visual Studio downloaded on your computer. This will also work for Mac users
 2. Double click on the BioMF solution file when you download the source files
