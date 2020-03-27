@@ -11,6 +11,12 @@ a, .btn-link {
     color: #0366d6;
 }
 
+/* Since we use a custom button, an invisible element appears. Here 
+we make it disappear to prevent formatting issues with buttons */
+.custom-file-input {
+    width: 0px;
+    height: 0px;
+}
 
 
 .btn-primary {
@@ -73,15 +79,17 @@ div.mappingcontainer {
 }
 
 div.frontpagespace {
+    min-width: 383px;
     padding-top: 50px;
     border: 1px hidden;
 }
 
 div.radioborders {
-    padding-top: 20px;
-    padding-bottom: 60px;
     border: 1px hidden;
-    padding-left: 320px;
+    padding-top: 5%;
+    padding-bottom: 15%;
+    padding-left: 25%;
+    padding-right: 25%;
     color: #2699fb
 }
 
