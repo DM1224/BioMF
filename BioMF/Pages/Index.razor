@@ -39,17 +39,17 @@
         </div>
 
     </div>
-    <div>
-        <InputFile class="custom-file-input" id="selectFile" OnChange="SelectFile" />
+    <div class="filebuttons">
+        <InputFile class="custom-file-input" id="selectFile" OnChange="@SelectFile" />
         @*Bug here IF there is an @onclick*@
         <label class="btn btn-primary" for="selectFile">Select File</label>
 
         @*Not in demo*@
-        <InputFile class="custom-file-input" disabled="@selectQueryGraphButtonState" id="selectQueryGraph" OnChange="SelectQueryGraphFile" />
+        <InputFile class="custom-file-input" disabled="@selectQueryGraphButtonState" id="selectQueryGraph" OnChange="@SelectQueryGraphFile" />
         <label class="btn btn-primary" for="selectQueryGraph">Select Query Graph</label>
 
         @*WARNING: There is a bug that crashed the website IF the user does not select a network file before pressing start!*@
-        <button class="btn btn-primary" @onclick="GetInputGraph" style="float: right;">Start</button>
+        <button class="btn btn-primary" @onclick="@GetInputGraph" style="float: right;">Start</button>
 
     </div>
 </div>

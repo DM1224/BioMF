@@ -27,9 +27,9 @@ we make it disappear to prevent formatting issues with buttons */
     cursor: pointer;
 }
 
-.btn-primary button:hover {
-    background-color: #f7f7f7;
-}
+    .btn-primary button:hover {
+        background-color: #f7f7f7;
+    }
 
 app {
     position: relative;
@@ -60,10 +60,10 @@ app {
             margin-left: 1.5rem;
         }
 
-.main .top-row a:first-child {
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+        .main .top-row a:first-child {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
 div.headerfont {
     color: white;
@@ -72,10 +72,13 @@ div.headerfont {
     font-size: 2.5em;
 }
 
+h2 {
+    font-size: 20px;
+}
+
 div.mappingcontainer {
     /*border: 1px solid black;*/
     margin-top: 350px; /*Fix margins later*/
-
 }
 
 div.frontpagespace {
@@ -87,7 +90,7 @@ div.frontpagespace {
 div.radioborders {
     border: 1px hidden;
     padding-top: 5%;
-    padding-bottom: 15%;
+    padding-bottom: 10%;
     padding-left: 25%;
     padding-right: 25%;
     color: #2699fb
@@ -101,7 +104,6 @@ div.subgraphnum {
 
 div.subgraphslider {
     text-align: center;
-
 }
 
 .slidecontainer {
@@ -145,6 +147,10 @@ div.subgraphslider {
         cursor: pointer;
     }
 
+.filebuttons {
+    padding-top: 15%;
+}
+
 .content {
     padding-top: 1.1rem;
 }
@@ -177,12 +183,12 @@ div.subgraphslider {
     z-index: 1000;
 }
 
-#blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.5rem;
-}
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
 
 @media (max-width: 767.98px) {
     .main .top-row:not(.auth) {
@@ -204,7 +210,7 @@ div.subgraphslider {
     }
 
     .main .top-row {
-        background-color: #2699fb;    
+        background-color: #2699fb;
         position: sticky;
         top: 0;
     }
@@ -214,5 +220,4 @@ div.subgraphslider {
         padding-left: 20rem !important;
         padding-right: 20rem !important;
     }
-
 }
